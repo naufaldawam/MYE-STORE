@@ -1,10 +1,11 @@
 package delivery
 
 type User struct {
-	ID       int
-	Name     string
-	Email    string
-	Password string
-	Phone    string
-	Address  string
+	id       int
+	name     string
+	email    string
+	password string
+	phone    string
+	address  string
+	role     string
 }
