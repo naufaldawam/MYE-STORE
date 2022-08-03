@@ -79,31 +79,26 @@ func (_m *UserData) Insert(newUser domain.User) (int, error) {
 }
 
 // LoginData provides a mock function with given fields: authData
-func (_m *UserData) LoginData(authData user.LoginModel) (string, string, error) {
+func (_m *UserData) LoginData(authData user.LoginModel) (map[string]interface{}, error) {
 	ret := _m.Called(authData)
 
-	var r0 string
-	if rf, ok := ret.Get(0).(func(user.LoginModel) string); ok {
+	var r0 map[string]interface{}
+	if rf, ok := ret.Get(0).(func(user.LoginModel) map[string]interface{}); ok {
 		r0 = rf(authData)
 	} else {
-		r0 = ret.Get(0).(string)
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(map[string]interface{})
+		}
 	}
 
-	var r1 string
-	if rf, ok := ret.Get(1).(func(user.LoginModel) string); ok {
+	var r1 error
+	if rf, ok := ret.Get(1).(func(user.LoginModel) error); ok {
 		r1 = rf(authData)
 	} else {
-		r1 = ret.Get(1).(string)
+		r1 = ret.Error(1)
 	}
 
-	var r2 error
-	if rf, ok := ret.Get(2).(func(user.LoginModel) error); ok {
-		r2 = rf(authData)
-	} else {
-		r2 = ret.Error(2)
-	}
-
-	return r0, r1, r2
+	return r0, r1
 }
 
 // UpdateData provides a mock function with given fields: data, idUser

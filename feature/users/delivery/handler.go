@@ -48,14 +48,17 @@ func (uh *userHandler) LoginAuth() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		authData := user.LoginModel{}
 		c.Bind(&authData)
-		token, name, e := uh.userUsecase.Login(authData)
+		fromToken, e := uh.userUsecase.Login(authData)
 		if e != nil {
 			return c.JSON(http.StatusBadRequest, _helper.ResponseFailed("email or password incorrect"))
 		}
 
 		data := map[string]interface{}{
-			"token": token,
-			"name":  name,
+			"id":    fromToken["id"],
+			"name":  fromToken["name"],
+			"email": fromToken["email"],
+			"role":  fromToken["role"],
+			"token": fromToken["token"],
 		}
 		return c.JSON(http.StatusOK, _helper.ResponseOkWithData("login success", data))
 	}
