@@ -24,6 +24,7 @@ func (u *User) ToModel() domain.User {
 		Phone:     u.Phone,
 		Password:  u.Password,
 		Address:   u.Address,
+		Role:      u.Role,
 		CreatedAt: u.CreatedAt,
 		UpdatedAt: u.UpdatedAt,
 	}
@@ -44,5 +45,6 @@ func FromModel(data domain.User) User {
 	res.Password = data.Password
 	res.Phone = data.Phone
 	res.Address = data.Address
+	res.Role = data.Role
 	return res
 }

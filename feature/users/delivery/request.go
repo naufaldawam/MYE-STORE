@@ -18,5 +18,6 @@ func (i *InsertFormat) ToModel() domain.User {
 		Password: i.Password,
 		Phone:    i.Phone,
 		Address:  i.Address,
+		Role:     i.Role,
 	}
 }
