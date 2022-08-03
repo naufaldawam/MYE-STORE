@@ -26,16 +26,16 @@ func New(ud domain.UserData, v *validator.Validate) domain.UserUseCase {
 }
 
 func (uc *userUseCase) AddUser(newUser domain.User) (row int, err error) {
-	if newUser.Name == "" || newUser.Email == "" || newUser.Password == "" || newUser.Phone == "" {
+	if newUser.Name == "" || newUser.Email == "" || newUser.Password == "" || newUser.Phone == "" || newUser.Address == "" {
 		return -1, errors.New("please make sure all fields are filled in correctly")
 	}
 	row, err = uc.userData.Insert(newUser)
 	return row, err
 }
 
-func (uc *userUseCase) Login(authData user.LoginModel) (token, name string, err error) {
-	token, name, err = uc.userData.LoginData(authData)
-	return token, name, err
+func (uc *userUseCase) Login(authData user.LoginModel) (data map[string]interface{}, err error) {
+	data, err = uc.userData.LoginData(authData)
+	return data, err
 }
 
 func (uc *userUseCase) GetProfile(id int) (domain.User, error) {
@@ -68,6 +68,9 @@ func (uc *userUseCase) UpdateCase(input domain.User, idFromToken int) (row int, 
 	}
 	if input.Phone != "" {
 		userReq["phone"] = input.Phone
+	}
+	if input.Address != "" {
+		userReq["address"] = input.Address
 	}
 	if input.Password != "" {
 		passwordHashed, errorHash := _bcrypt.GenerateFromPassword([]byte(input.Password), 10)

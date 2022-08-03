@@ -40,25 +40,32 @@ func (ud *userData) Insert(newUser domain.User) (row int, err error) {
 	return int(resultCreate.RowsAffected), nil
 }
 
-func (ud *userData) LoginData(authData user.LoginModel) (token, name string, err error) {
+func (ud *userData) LoginData(authData user.LoginModel) (data map[string]interface{}, err error) {
 	userData := User{}
 	result := ud.db.Where("email = ?", authData.Email).First(&userData)
 
 	if result.Error != nil {
-		return "", "", result.Error
+		return nil, result.Error
 	}
 
 	if result.RowsAffected != 1 {
-		return "", "", errors.New("failed to login")
+		return nil, errors.New("failed to login")
 	}
 
 	errCrypt := _bcrypt.CompareHashAndPassword([]byte(userData.Password), []byte(authData.Password))
 
 	if errCrypt != nil {
-		return "", "", errors.New("password incorrect")
+		return nil, errors.New("password incorrect")
 	}
-	token, _ = common.GenerateToken(int(userData.ID))
-	return token, userData.Name, nil
+	token, _ := common.GenerateToken(int(userData.ID))
+
+	var dataToken = map[string]interface{}{}
+	dataToken["id"] = int(userData.ID)
+	dataToken["name"] = userData.Name
+	dataToken["email"] = userData.Email
+	dataToken["role"] = userData.Role
+	dataToken["token"] = token
+	return dataToken, nil
 }
 func (ud *userData) GetSpecific(userID int) (domain.User, error) {
 	var tmp User
