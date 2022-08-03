@@ -9,6 +9,10 @@ import (
 	productDelivery "project3/group3/feature/products/delivery"
 	ps "project3/group3/feature/products/usecase"
 
+	cd "project3/group3/feature/carts/data"
+	cartDelivery "project3/group3/feature/carts/delivery"
+	cs "project3/group3/feature/carts/usecase"
+
 	"github.com/go-playground/validator"
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
@@ -27,4 +31,8 @@ func InitFactory(e *echo.Echo, db *gorm.DB) {
 	productHandler := productDelivery.New(productCase)
 	productDelivery.RouteProduct(e, productHandler)
 
+	cartData := cd.New(db)
+	cartCase := cs.New(cartData)
+	cartHandler := cartDelivery.New(cartCase)
+	cartDelivery.RouteCart(e, cartHandler)
 }
