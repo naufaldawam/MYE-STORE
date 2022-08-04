@@ -55,7 +55,7 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">project3/group3/feature/products/usecase/logic.go (19.0%)</option>
+				<option value="file0">project3/group3/feature/products/usecase/logic.go (100.0%)</option>
 				
 				</select>
 			</div>
@@ -91,34 +91,34 @@ func (pc *productUseCase) InsertProduct(newProduct domain.Product) (result domai
         return resultGet, err
 }</span>
 
-func (pc *productUseCase) DeleteProduct(productID int) (row int, err error) <span class="cov0" title="0">{
+func (pc *productUseCase) DeleteProduct(productID int) (row int, err error) <span class="cov8" title="1">{
         row, err = pc.productData.DeleteProductDB(productID)
         return row, err
 }</span>
-func (pu *productUseCase) GetAllData(limit, offset int) (data []domain.Product, err error) <span class="cov0" title="0">{
+func (pu *productUseCase) GetAllData(limit, offset int) (data []domain.Product, err error) <span class="cov8" title="1">{
         res, err := pu.productData.SelectData(limit, offset)
         return res, err
 }</span>
-func (pu *productUseCase) GetProductById(id int) (data domain.Product, err error) <span class="cov0" title="0">{
+func (pu *productUseCase) GetProductById(id int) (data domain.Product, err error) <span class="cov8" title="1">{
         data, err = pu.productData.SelectDataById(id)
         return data, err
 }</span>
-func (pu *productUseCase) UpdateData(data domain.Product, idProduct, idFromToken int) (row int, err error) <span class="cov0" title="0">{
+func (pu *productUseCase) UpdateData(data domain.Product, idProduct, idFromToken int) (row int, err error) <span class="cov8" title="1">{
         reqData := map[string]interface{}{}
-        if data.ProductName != "" </span><span class="cov0" title="0">{
+        if data.ProductName != "" </span><span class="cov8" title="1">{
                 reqData["product_name"] = data.ProductName
         }</span>
-        <span class="cov0" title="0">if data.ProductImage != "" </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">if data.ProductImage != "" </span><span class="cov8" title="1">{
                 reqData["product_image"] = data.ProductImage
         }</span>
-        <span class="cov0" title="0">if data.Stock != 0 </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">if data.Stock != 0 </span><span class="cov8" title="1">{
                 reqData["stock"] = data.Stock
         }</span>
-        <span class="cov0" title="0">if data.Price != 0 </span><span class="cov0" title="0">{
+        <span class="cov8" title="1">if data.Price != 0 </span><span class="cov8" title="1">{
                 reqData["price"] = data.Price
         }</span>
 
-        <span class="cov0" title="0">row, err = pu.productData.UpdateData(reqData, idProduct, idFromToken)
+        <span class="cov8" title="1">row, err = pu.productData.UpdateData(reqData, idProduct, idFromToken)
         return row, err</span>
 }
 </pre>
