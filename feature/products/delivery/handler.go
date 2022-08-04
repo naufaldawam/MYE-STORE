@@ -1,7 +1,6 @@
 package delivery
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"project3/group3/domain"
@@ -26,19 +25,17 @@ func New(ps domain.ProductUseCase) domain.ProductHandler {
 func (ph *productHandler) InsertProductHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		var tmp InsertProductFormat
-		idFromToken, _ := _middleware.ExtractData(c)
-		if idFromToken != 1 && idFromToken != 2 {
-			return c.JSON(http.StatusInternalServerError, _helper.ResponseFailed("your account not admin"))
-		}
-
 		err := c.Bind(&tmp)
+		if err != nil {
+			log.Println("cannot parse data", err)
+			return c.JSON(http.StatusInternalServerError, _helper.ResponseFailed("failed to bind data"))
+		}
 		// =================================================================================
-
 		fileData, fileInfo, fileErr := c.Request().FormFile("product_image")
 
 		// return err jika missing file
 		if fileErr == http.ErrMissingFile || fileErr != nil {
-			return c.JSON(http.StatusInternalServerError, _helper.ResponseFailed("failed to get file eee"))
+			return c.JSON(http.StatusInternalServerError, _helper.ResponseFailed("failed to get file"))
 		}
 
 		// cek ekstension file upload
@@ -57,17 +54,19 @@ func (ph *productHandler) InsertProductHandler() echo.HandlerFunc {
 		fileName := time.Now().Format("2006-01-02 15:04:05") + "." + extension
 		url, errUploadImg := _helper.UploadImageToS3(fileName, fileData)
 		if errUploadImg != nil {
-			fmt.Println(errUploadImg)
-			return c.JSON(http.StatusInternalServerError, _helper.ResponseFailed("failed to upload file"))
+			// fmt.Println(errUploadImg)
+			// fmt.Println(fileName)
+			log.Println("ini :", url)
+			return c.JSON(http.StatusInternalServerError, _helper.ResponseFailed("failed to upload file "))
 		}
 
 		// =================================================================================
+		idFromToken, _ := _middleware.ExtractData(c)
+		if idFromToken != 1 && idFromToken != 2 {
+			return c.JSON(http.StatusInternalServerError, _helper.ResponseFailed("your account not admin"))
+		}
 		tmp.UserID = idFromToken
 		tmp.ProductImage = url
-		if err != nil {
-			log.Println("cannot parse data", err)
-			return c.JSON(http.StatusInternalServerError, _helper.ResponseFailed("failed to bind data"))
-		}
 
 		dataProduct := tmp.ToModel()
 		result, errCreate := ph.productUseCase.InsertProduct(dataProduct)
