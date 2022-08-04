@@ -1,6 +1,7 @@
 package delivery
 
 import (
+	"log"
 	"net/http"
 	"project3/group3/domain"
 	_middleware "project3/group3/feature/common"
@@ -77,6 +78,23 @@ func (h *CartHandler) UpdateCart() echo.HandlerFunc {
 		}
 		if row == 0 {
 			return c.JSON(http.StatusBadRequest, _helper.ResponseFailed("failed to update data"))
+		}
+		return c.JSON(http.StatusOK, _helper.ResponseOkNoData("success"))
+	}
+}
+
+func (h *CartHandler) DeleteCart() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		id := c.Param("id")
+		idProd, _ := strconv.Atoi(id)
+		idFromToken, _ := _middleware.ExtractData(c)
+		row, errDel := h.cartUseCase.DeleteData(idProd, idFromToken)
+		if errDel != nil {
+			log.Println("cek", errDel)
+			return c.JSON(http.StatusInternalServerError, _helper.ResponseFailed("you dont have access"))
+		}
+		if row != 1 {
+			return c.JSON(http.StatusBadRequest, _helper.ResponseFailed("failed to delete data user"))
 		}
 		return c.JSON(http.StatusOK, _helper.ResponseOkNoData("success"))
 	}
