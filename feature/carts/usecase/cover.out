@@ -1,0 +1,13 @@
+mode: set
+project3/group3/feature/carts/usecase/logic.go:12.50,16.2 1 1
+project3/group3/feature/carts/usecase/logic.go:18.99,20.25 2 1
+project3/group3/feature/carts/usecase/logic.go:23.2,23.18 1 1
+project3/group3/feature/carts/usecase/logic.go:20.25,22.3 1 1
+project3/group3/feature/carts/usecase/logic.go:26.74,27.45 1 1
+project3/group3/feature/carts/usecase/logic.go:30.2,31.13 2 1
+project3/group3/feature/carts/usecase/logic.go:37.2,37.17 1 1
+project3/group3/feature/carts/usecase/logic.go:27.45,29.3 1 0
+project3/group3/feature/carts/usecase/logic.go:31.13,33.3 1 0
+project3/group3/feature/carts/usecase/logic.go:33.8,35.3 1 1
+project3/group3/feature/carts/usecase/logic.go:40.88,43.2 2 1
+project3/group3/feature/carts/usecase/logic.go:45.81,48.2 2 1
