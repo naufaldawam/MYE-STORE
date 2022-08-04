@@ -10,5 +10,6 @@ import (
 func RouteCart(e *echo.Echo, dp domain.CartHandler) {
 	e.POST("/carts", dp.PostCart(), _middleware.JWTMiddleware())
 	e.GET("/carts", dp.GetAll(), _middleware.JWTMiddleware())
-	e.PUT("/carts", dp.UpdateCart(), _middleware.JWTMiddleware())
+	e.PUT("/carts/:id", dp.UpdateCart(), _middleware.JWTMiddleware())
+	e.DELETE("/carts/:id", dp.DeleteCart(), _middleware.JWTMiddleware())
 }

@@ -42,6 +42,7 @@ type CartUseCase interface {
 	GetAllData(limit, offset, idFromToken int) (data []Cart, err error)
 	CreateData(data Cart) (row int, err error)
 	UpdateData(stock, idCart, idFromToken int) (row int, err error)
+	DeleteData(idProd, idFromToken int) (row int, err error)
 }
 
 //usecase
@@ -50,10 +51,12 @@ type ChartData interface {
 	SelectData(limit, offset, idFromToken int) (data []Cart, err error)
 	CheckCart(idProd, idFromToken int) (isExist bool, idCart, stock int, err error)
 	UpdateDataDB(stock, idCart, idFromToken int) (row int, err error)
+	DeleteDataDB(idProd, idFromToken int) (row int, err error)
 }
 
 type CartHandler interface {
 	PostCart() echo.HandlerFunc
 	GetAll() echo.HandlerFunc
 	UpdateCart() echo.HandlerFunc
+	DeleteCart() echo.HandlerFunc
 }
