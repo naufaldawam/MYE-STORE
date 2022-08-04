@@ -1,15 +1,15 @@
 mode: set
 project3/group3/feature/products/usecase/logic.go:11.55,15.2 1 1
 project3/group3/feature/products/usecase/logic.go:17.103,21.2 3 1
-project3/group3/feature/products/usecase/logic.go:23.77,26.2 2 0
-project3/group3/feature/products/usecase/logic.go:27.92,30.2 2 0
-project3/group3/feature/products/usecase/logic.go:31.83,34.2 2 0
-project3/group3/feature/products/usecase/logic.go:35.108,37.28 2 0
-project3/group3/feature/products/usecase/logic.go:40.2,40.29 1 0
-project3/group3/feature/products/usecase/logic.go:43.2,43.21 1 0
-project3/group3/feature/products/usecase/logic.go:46.2,46.21 1 0
-project3/group3/feature/products/usecase/logic.go:50.2,51.17 2 0
-project3/group3/feature/products/usecase/logic.go:37.28,39.3 1 0
-project3/group3/feature/products/usecase/logic.go:40.29,42.3 1 0
-project3/group3/feature/products/usecase/logic.go:43.21,45.3 1 0
-project3/group3/feature/products/usecase/logic.go:46.21,48.3 1 0
+project3/group3/feature/products/usecase/logic.go:23.77,26.2 2 1
+project3/group3/feature/products/usecase/logic.go:27.92,30.2 2 1
+project3/group3/feature/products/usecase/logic.go:31.83,34.2 2 1
+project3/group3/feature/products/usecase/logic.go:35.108,37.28 2 1
+project3/group3/feature/products/usecase/logic.go:40.2,40.29 1 1
+project3/group3/feature/products/usecase/logic.go:43.2,43.21 1 1
+project3/group3/feature/products/usecase/logic.go:46.2,46.21 1 1
+project3/group3/feature/products/usecase/logic.go:50.2,51.17 2 1
+project3/group3/feature/products/usecase/logic.go:37.28,39.3 1 1
+project3/group3/feature/products/usecase/logic.go:40.29,42.3 1 1
+project3/group3/feature/products/usecase/logic.go:43.21,45.3 1 1
+project3/group3/feature/products/usecase/logic.go:46.21,48.3 1 1
