@@ -1,6 +1,7 @@
 package delivery
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"project3/group3/domain"
@@ -51,12 +52,10 @@ func (ph *productHandler) InsertProductHandler() echo.HandlerFunc {
 		}
 
 		// memberikan nama file
-		fileName := time.Now().Format("2006-01-02 15:04:05") + "." + extension
+		fileName := time.Now().Format("2006-01-0215:04:05") + "-s3" + "." + extension
 		url, errUploadImg := _helper.UploadImageToS3(fileName, fileData)
 		if errUploadImg != nil {
-			// fmt.Println(errUploadImg)
-			// fmt.Println(fileName)
-			log.Println("ini :", url)
+			fmt.Println(errUploadImg)
 			return c.JSON(http.StatusInternalServerError, _helper.ResponseFailed("failed to upload file "))
 		}
 

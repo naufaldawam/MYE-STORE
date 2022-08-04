@@ -46,7 +46,7 @@ func CheckFileSize(size int64) error {
 		return fmt.Errorf("illegal file size")
 	}
 
-	if size > 1097152 {
+	if size > 25165824 {
 		return fmt.Errorf("file size too big")
 	}
 
