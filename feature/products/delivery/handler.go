@@ -1,12 +1,14 @@
 package delivery
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"project3/group3/domain"
 	_middleware "project3/group3/feature/common"
 	_helper "project3/group3/helper"
 	"strconv"
+	"time"
 
 	"github.com/labstack/echo/v4"
 )
@@ -30,7 +32,38 @@ func (ph *productHandler) InsertProductHandler() echo.HandlerFunc {
 		}
 
 		err := c.Bind(&tmp)
+		// =================================================================================
+
+		fileData, fileInfo, fileErr := c.Request().FormFile("product_image")
+
+		// return err jika missing file
+		if fileErr == http.ErrMissingFile || fileErr != nil {
+			return c.JSON(http.StatusInternalServerError, _helper.ResponseFailed("failed to get file eee"))
+		}
+
+		// cek ekstension file upload
+		extension, err_check_extension := _helper.CheckFileExtension(fileInfo.Filename)
+		if err_check_extension != nil {
+			return c.JSON(http.StatusBadRequest, _helper.ResponseFailed("file extension error"))
+		}
+
+		// check file size
+		err_check_size := _helper.CheckFileSize(fileInfo.Size)
+		if err_check_size != nil {
+			return c.JSON(http.StatusBadRequest, _helper.ResponseFailed("file size error"))
+		}
+
+		// memberikan nama file
+		fileName := time.Now().Format("2006-01-02 15:04:05") + "." + extension
+		url, errUploadImg := _helper.UploadImageToS3(fileName, fileData)
+		if errUploadImg != nil {
+			fmt.Println(errUploadImg)
+			return c.JSON(http.StatusInternalServerError, _helper.ResponseFailed("failed to upload file"))
+		}
+
+		// =================================================================================
 		tmp.UserID = idFromToken
+		tmp.ProductImage = url
 		if err != nil {
 			log.Println("cannot parse data", err)
 			return c.JSON(http.StatusInternalServerError, _helper.ResponseFailed("failed to bind data"))
