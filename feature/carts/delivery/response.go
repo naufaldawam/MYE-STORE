@@ -12,9 +12,9 @@ type Cart struct {
 
 type Product struct {
 	ID          int    `json:"id"`
-	ProductName string `json:"name"`
+	ProductName string `json:"product_name"`
 	Price       int    `json:"price"`
-	Stock       int    `json:"qty"`
+	Stock       int    `json:"stock"`
 }
 
 func FromModel(data domain.Cart) Cart {
