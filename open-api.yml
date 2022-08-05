@@ -1,43 +1,39 @@
 openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: ScarvaEStore
+  description: online shop
 servers:
   # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/HERIWINONG01/my-estore/1.0.0
-info:
-  description: This is a simple API
-  version: "1.0.0"
-  title: Simple Inventory API
-  contact:
-    email: you@your-company.com
-  license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    url: https://virtserver.swaggerhub.com/ivands26/TestESTORE/1.0.0
+  - url: 'https://petstore.swagger.io/v2'
+
 tags:
- - name: Authentication
- - name: Users
- - name: Admin
- - name: Product
- - name: Cart
- - name: Order
+  - name: Autentication
+  - name: Users
+  - name: Product
+  - name: Cart
+  - name: Order
 
 paths:
   #autentication
   /login:
     post:
       tags:
-        - Authentication
+        - Autentication
       parameters: []
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/requestLogin"
+              $ref: "#"
             example:
-              email: alterra@gmail.com
+              email: altera@gmail.com
               password: qwerty123
       responses:
         "200":
-          description: Success Response(Login Users)
+          description: Success Response
           content:
             application/json:
               schema:
@@ -53,28 +49,6 @@ paths:
                       data:
                         {
                           nama: "Sutiaji",
-                          roles: "user",
-                          token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2MzgzMjYxODAsInVzZXJJZCI6MSwidXNlcm5hbWUiOiJhZG1pbiJ9.AebFR-oQjUSOMez2ucDWkiMrS2eQIPmcYm5c71qZ_co",
-                        },
-                    }
-        "201":
-          description: Success Response(Login Admins)
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/responseLoginSuccess"
-              examples:
-                responseData1:
-                  description: response success 1
-                  value:
-                    {
-                      code: 200,
-                      status: "success",
-                      message: "Login Success",
-                      data:
-                        {
-                          nama: "ivan",
-                          roles: "admin",
                           token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2MzgzMjYxODAsInVzZXJJZCI6MSwidXNlcm5hbWUiOiJhZG1pbiJ9.AebFR-oQjUSOMez2ucDWkiMrS2eQIPmcYm5c71qZ_co",
                         },
                     }
@@ -93,7 +67,8 @@ paths:
                       status: "failed",
                       message: "email or password incorrect",
                     }
-  /register:
+  #users
+  /users:
     post:
       tags:
         - Users
@@ -138,14 +113,12 @@ paths:
                       status: "failed",
                       message: "please make sure all fields are filled in correctly",
                     }
-  #users
-  /users/{id} :  
+  /users/{id}:
     get:
       tags:
         - Users
       security:
         - JWTAuth: []
-      description: Fitur untuk mmelihat detail profil
       parameters:
         - name: iduser
           description: get data by id
@@ -270,10 +243,8 @@ paths:
   /products:
     post:
       tags:
-        - Admin
+        - Product
       parameters: []
-      security:
-        - JWTAuth: []
       requestBody:
         content:
           application/json:
@@ -312,6 +283,7 @@ paths:
                 responseData1:
                   description: response failed 1
                   value: { code: 400, status: "failed", message: "Bad request" }
+
     get:
       tags:
         - Product
@@ -354,6 +326,7 @@ paths:
                 responseData1:
                   description: response failed 1
                   value: { code: 400, status: "failed", message: "Bad request" }
+
   /products/{id}:
     get:
       tags:
@@ -404,7 +377,7 @@ paths:
                   value: { code: 400, status: "failed", message: "bad request" }
     put:
       tags:
-        - Admin
+        - Product
       security:
         - JWTAuth: []
       requestBody:
@@ -456,7 +429,7 @@ paths:
                     }
     delete:
       tags:
-        - Admin
+        - Product
       security:
         - JWTAuth: []
       parameters:
@@ -490,7 +463,45 @@ paths:
                 responseData1:
                   description: response failed 1
                   value: { code: 400, status: "failed", message: "Bad Request" }
-  
+  /products/me:
+    get:
+      tags:
+        - Product
+      security:
+        - JWTAuth: []
+      parameters:
+        - name: idproduct
+          description: get data by id
+          in: path
+          schema:
+            type: integer
+            example: 1
+          required: true
+      responses:
+        "403":
+          description: forbiden
+        "404":
+          description: No data
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: "#"
+              examples:
+                response data:
+                  description: response success 1
+                  value:
+                    {
+                      id: 1,
+                      name: adidas1,
+                      price: 500000,
+                      qty: 1,
+                      image: https://www.priceza.co.id/article/sepatu-adidas/,
+                      description: ini sepetu runing adidas1,
+                      User: { id: 6, name: alta },
+                    }
+
   /carts:
     post:
       tags:

@@ -1,10 +1,10 @@
 package helper
 
 import (
-	_config "project3/group3/config"
 	"fmt"
 	"mime/multipart"
 	"os"
+	_config "project3/group3/config"
 	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -46,7 +46,7 @@ func CheckFileSize(size int64) error {
 		return fmt.Errorf("illegal file size")
 	}
 
-	if size > 1097152 {
+	if size > 25165824 {
 		return fmt.Errorf("file size too big")
 	}
 

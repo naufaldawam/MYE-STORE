@@ -13,6 +13,8 @@ type User struct {
 	Email     string
 	Password  string
 	Phone     string
+	Role      string
+	Address   string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
@@ -20,7 +22,7 @@ type User struct {
 //logic
 type UserUseCase interface {
 	AddUser(newUser User) (row int, err error)
-	Login(auth user.LoginModel) (token, name string, err error)
+	Login(auth user.LoginModel) (data map[string]interface{}, err error)
 	GetProfile(id int) (User, error)
 	DeleteCase(userID int) (row int, err error)
 	UpdateCase(input User, idUser int) (row int, err error)
@@ -29,7 +31,7 @@ type UserUseCase interface {
 //query
 type UserData interface {
 	Insert(newUser User) (row int, err error)
-	LoginData(authData user.LoginModel) (token, name string, err error)
+	LoginData(authData user.LoginModel) (data map[string]interface{}, err error)
 	GetSpecific(userID int) (User, error)
 	DeleteData(userID int) (row int, err error)
 	UpdateData(data map[string]interface{}, idUser int) (row int, err error)

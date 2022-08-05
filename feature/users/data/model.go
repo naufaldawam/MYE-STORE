@@ -10,9 +10,10 @@ type User struct {
 	gorm.Model
 	Name     string
 	Phone    string
-	Role     string `gorm:"default:user"`
 	Email    string `gorm:"unique" validate:"required,email"`
+	Address  string
 	Password string
+	Role     string `gorm:"default:user"`
 }
 
 func (u *User) ToModel() domain.User {
@@ -22,6 +23,8 @@ func (u *User) ToModel() domain.User {
 		Email:     u.Email,
 		Phone:     u.Phone,
 		Password:  u.Password,
+		Address:   u.Address,
+		Role:      u.Role,
 		CreatedAt: u.CreatedAt,
 		UpdatedAt: u.UpdatedAt,
 	}
@@ -41,5 +44,7 @@ func FromModel(data domain.User) User {
 	res.Name = data.Name
 	res.Password = data.Password
 	res.Phone = data.Phone
+	res.Address = data.Address
+	res.Role = data.Role
 	return res
 }
